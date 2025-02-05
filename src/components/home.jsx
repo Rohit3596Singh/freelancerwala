@@ -66,7 +66,7 @@ const Home = () => {
           {/* </div> */}
         </div>
 
-        <Delivery/>
+        {/* <Delivery/> */}
 
         {/* Trending product */}
         <div className="d-flex justify-content-center m-5">
