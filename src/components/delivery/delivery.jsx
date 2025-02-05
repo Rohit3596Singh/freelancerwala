@@ -2,7 +2,7 @@ import React from 'react';
 
 const Delivery = () => {
   return (
-    <div className="w-100" style={{ height: "20vh", backgroundColor: "#f8f9fa" }}>
+    <div className="w-100" style={{ minHeight: "15vh", backgroundColor: "#f8f9fa" }}>
       <div className=" h-100">
         <div className="row h-100 align-items-center text-center" style={{backgroundColor:"#f0f8ff"}}>
           {/* Delivery Items */}
