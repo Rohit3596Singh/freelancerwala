@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
-import FRAME1 from "../../assets/Frame85.png";
-import FRAME2 from "../../assets/Frame86.png";
-import FRAME3 from "../../assets/Frame88.png";
-import FRAME4 from "../../assets/Frame89.png";
+import FRAME1 from "../../assets/WinZip-Enterprise29.webp";
+import FRAME2 from "../../assets/c-1.webp";
+import FRAME3 from "../../assets/CorelPainter-2023-1.webp";
+import FRAME4 from "../../assets/pdf-fusion.webp";
 
 const Categories = () => {
   const navigate = useNavigate(); // Hook for navigation
