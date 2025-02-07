@@ -1,6 +1,4 @@
-// password:- pcy4AsakLj1lFNNQ
-// username:- srohit3596
-// Connection string :-  mongodb+srv://srohit3596:pcy4AsakLj1lFNNQ@cluster0.txrii.mongodb.net/
+
 
 const express = require('express');
 const app = express();
@@ -16,7 +14,7 @@ app.get("/ping",(req,res)=>{
     res.send("PONG");
 })
 
-app.use(bodyParser.json)
+app.use(bodyParser.json())
 app.use(cors())
 app.use('/auth',AuthRouter)
 
