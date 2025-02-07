@@ -5,6 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BackendUrl } from "../../constants";
 // import { handleSuccess,handleError } from "../../../utils";
 import { handleSuccess,handleError } from "../../../utils";
+
+import Header from "../../components/header/header"
+import Footer from "../../components/footer/footer"
+
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const navigate = useNavigate();
@@ -49,6 +53,8 @@ const Login = () => {
   };
 
   return (
+    <div>
+      <Header/>
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4 shadow-lg" style={{ width: "400px" }}>
         <h2 className="text-center mb-4">Login</h2>
@@ -79,6 +85,8 @@ const Login = () => {
         </form>
         <ToastContainer />
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 };

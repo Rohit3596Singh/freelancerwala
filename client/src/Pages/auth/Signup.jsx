@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Eye, EyeOff } from "lucide-react";
+import Header from "../../components/header/header"
+import Footer from "../../components/footer/footer"
 
 import { BackendUrl } from "../../constants";
 import { handleSuccess } from "../../../utils";
@@ -51,6 +53,8 @@ const SignUp = () => {
   };
 
   return (
+    <div>
+      <Header />
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4 shadow-lg" style={{ width: "400px" }}>
         <h2 className="text-center mb-4">Sign Up</h2>
@@ -114,6 +118,8 @@ const SignUp = () => {
         </form>
         <ToastContainer />
       </div>
+    </div>
+    <Footer />
     </div>
   );
 };
