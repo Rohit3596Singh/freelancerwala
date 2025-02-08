@@ -1,7 +1,10 @@
 import React from "react";
 import { Card, Button, Badge } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product, onAddToCart }) => {
+
+  const navigate = useNavigate();
   return (
     <Card className="shadow-sm p-2 rounded">
       {/* Product Image */}
@@ -44,7 +47,11 @@ const ProductCard = ({ product, onAddToCart }) => {
           <Button variant="warning" className="fw-bold" onClick={() => onAddToCart(product)}>
             🛒 Add to Cart
           </Button>
-          <button className="btn btn-primary">⚡ Buy Now</button>
+          <button className="btn btn-primary"
+          onClick={()=>{
+            navigate("/signup")
+          }}
+          >⚡ Buy Now</button>
         </div>
       </Card.Body>
     </Card>

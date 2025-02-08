@@ -82,6 +82,12 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="btn btn-primary w-100">Login</button>
+          <p
+          style={{ cursor: "pointer" }}
+          onClick={()=>{
+            navigate("/admin/login")
+          }}
+          >Login as admin</p>
         </form>
         <ToastContainer />
       </div>

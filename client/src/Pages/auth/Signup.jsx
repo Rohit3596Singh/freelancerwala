@@ -109,6 +109,12 @@ const SignUp = () => {
           <button type="submit" className="btn btn-primary w-100">
             Sign Up
           </button>
+          <p
+          style={{ cursor: "pointer" }}
+          onClick={()=>{
+            navigate("/admin/signup")
+          }}
+          >Signup as admin</p>
 
           {/* Login Link */}
           <div className="mt-3 text-center">
