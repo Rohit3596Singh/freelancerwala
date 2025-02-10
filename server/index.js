@@ -6,6 +6,9 @@ require('dotenv').config();
 require('./models/db')
 const AuthRouter = require('./Routes/AuthRoute')
 const AdminAuthRouter = require('./Routes/AdminAuthRoute')
+// const uploadRoutes = require('./Routes/uploadRoute');
+const productRoutes = require('./Routes/productRoute');
+
 
 const app = express();
 
@@ -28,6 +31,18 @@ app.get("/ping",(req,res)=>{
 
 app.use('/auth',AuthRouter);
 app.use('/admin/auth', AdminAuthRouter);
+// app.use("/uploads", express.static("uploads"));
+// app.use('/api', uploadRoutes);
+app.use('/api', productRoutes);
+
+app._router.stack.forEach((r) => {
+    if (r.route && r.route.path) {
+      console.log(r.route.path);
+    }
+  });
+  
+
+
 
 app.listen(PORT,()=>{
     console.log(`Server is running on ${PORT}`)
