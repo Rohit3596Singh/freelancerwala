@@ -47,6 +47,14 @@ const ProductCard = ({ product, onAddToCart }) => {
           <Button variant="warning" className="fw-bold" onClick={() => onAddToCart(product)}>
             🛒 Add to Cart
           </Button>
+          {/* <Button 
+            variant={isAddedToCart ? "success" : "warning"} 
+            className="fw-bold" 
+            onClick={() => onAddToCart(product)} 
+            disabled={isAddedToCart}
+          >
+            {isAddedToCart ? "Added to Cart ✅" : "🛒 Add to Cart"}
+          </Button> */}
           <button className="btn btn-primary"
           onClick={()=>{
             navigate("/signup")

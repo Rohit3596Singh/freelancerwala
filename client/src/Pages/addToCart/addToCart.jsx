@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom"; // Hook to access state passed through router
 
@@ -7,13 +7,20 @@ import Header from "../../components/header/header.jsx";
 
 const CartPage = () => {
   const location = useLocation();
-  const cart = location.state?.cart || []; // Retrieve cart data from router state
-  const [updatedCart, setUpdatedCart] = useState(cart);
+  const initialCart = JSON.parse(localStorage.getItem("cart")) || []; // Retrieve cart from localStorage
+  const [updatedCart, setUpdatedCart] = useState(initialCart);
+
+  // Update localStorage when cart changes
+  useEffect(() => {
+    if (updatedCart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
+  }, [updatedCart]);
 
   // Handle quantity change
   const handleQuantityChange = (index, event) => {
     const newCart = [...updatedCart];
-    newCart[index].quantity = parseInt(event.target.value);
+    newCart[index].quantity = parseInt(event.target.value) || 1;
     setUpdatedCart(newCart);
   };
 
@@ -23,17 +30,17 @@ const CartPage = () => {
     setUpdatedCart(newCart);
   };
 
-  // Calculate total price
+  // ✅ Correct Total Calculation
   const calculateTotal = () => {
     return updatedCart.reduce(
-      (total, product) => total + product.price * product.quantity,
+      (total, product) => total + (product.price * (product.quantity || 1)), // Default quantity to 1
       0
     );
   };
 
   return (
     <div className="">
-        <Header/>
+      <Header cart={updatedCart} />
       <h2 className="p-3 my-4">Shopping Cart</h2>
       <div className="p-3">
         <Row>
@@ -74,7 +81,7 @@ const CartPage = () => {
                             <Form.Label>Quantity:</Form.Label>
                             <Form.Control
                               as="select"
-                              value={product.quantity}
+                              value={product.quantity || 1} // Default to 1
                               onChange={(event) => handleQuantityChange(index, event)}
                             >
                               {[...Array(10).keys()].map((num) => (
@@ -102,6 +109,7 @@ const CartPage = () => {
             )}
           </Col>
 
+          {/* ✅ Order Summary */}
           <Col md={4}>
             <Card className="shadow-sm p-3 rounded">
               <Card.Body>
