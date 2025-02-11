@@ -54,132 +54,25 @@ const SignUp = () => {
   };
 
   return (
-    // <div>
-    //   <Header />
-    // <div className="container d-flex justify-content-center align-items-center vh-100"
-    // style={{
-      
-    //   backgroundImage: `url(${background})`,
-    // backgroundSize: "cover",
-    // backgroundPosition: "end",
-    // backgroundRepeat: "no-repeat",
-    // minHeight: "100vh",
-    // }}
-    // >
-    //   <div className="card p-4 shadow-lg" style={{ width: "400px" }}>
-    //     <h2 className="text-center mb-4">Sign Up</h2>
-    //     <form onSubmit={handleSubmit}>
-    //       {/* Name Input */}
-    //       <div className="mb-3">
-    //         <label className="form-label">Name</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           name="name"
-    //           value={signupInfo.name}
-    //           onChange={handleChange}
-    //           required
-    //         />
-    //       </div>
-
-    //       {/* Email Input */}
-    //       <div className="mb-3">
-    //         <label className="form-label">Email</label>
-    //         <input
-    //           type="email"
-    //           className="form-control"
-    //           name="email"
-    //           value={signupInfo.email}
-    //           onChange={handleChange}
-    //           required
-    //         />
-    //       </div>
-
-    //       {/* Password Input with Toggle */}
-    //       <div className="mb-3 position-relative">
-    //         <label className="form-label">Password</label>
-    //         <input
-    //           type={showPassword ? "text" : "password"}
-    //           className="form-control pe-5" // Add padding to prevent overlap
-    //           name="password"
-    //           value={signupInfo.password}
-    //           onChange={handleChange}
-    //           required
-    //         />
-    //         <button
-    //           type="button"
-    //           className="btn position-absolute top-50 end-0 translate-middle-y me-2"
-    //           onClick={() => setShowPassword(!showPassword)}
-    //         >
-    //           {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-    //         </button>
-    //       </div>
-
-    //       {/* Submit Button */}
-    //       <button type="submit" className="btn btn-primary w-100">
-    //         Sign Up
-    //       </button>
-    //       <p
-    //       style={{ cursor: "pointer" }}
-    //       onClick={()=>{
-    //         navigate("/admin/signup")
-    //       }}
-    //       >Signup as admin</p>
-
-    //       {/* Login Link */}
-    //       <div className="mt-3 text-center">
-    //         <span>Already have an account? </span>
-    //         <Link to="/login">Login</Link>
-    //       </div>
-    //     </form>
-    //     <ToastContainer />
-    //   </div>
-    // </div>
-    // <Footer />
-    // </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div
+    <div
   style={{
     backgroundImage: `url(${background})`,
     backgroundSize: "cover",
-    // backgroundPosition: "right",
-    backgroundPosition:"center",
-    backgroundPositionY:"start",
+    backgroundPosition: "center",
+    backgroundPositionY: "-200px", // Adjust this value as needed
     backgroundRepeat: "no-repeat",
-    Height: "90vh",
-    width: "100%",  // Full width to cover the entire screen
-    // display: "flex",
-    // justifyContent: "flex-start", // Aligns content to the left
+    height: "100%",
+    width: "100%",
+    // overflow:"hidden"
   }}
 >
   <Header />
-  <div className="vh-100 d-flex align-items-center" style={{ width: "90%",height:"92%" }}>
+  <div className=" d-flex align-items-center" style={{ width: "90%",height:"100vh" }}>
     <div className="container">
       <div className="row">
         
         {/* Left Side: Signup Form */}
-        <div className="col-md-4 d-flex justify-content-start align-items-center">
+        <div className="col-md-4 m-3 d-flex justify-content-start align-items-center">
           <div className="card p-4 shadow-lg" style={{ width: "400px", background: "white" }}>
             <h2 className="text-center mb-4">Sign Up</h2>
             <form onSubmit={handleSubmit}>
@@ -211,23 +104,33 @@ const SignUp = () => {
 
               {/* Password Input with Toggle */}
               <div className="mb-3 position-relative">
-                <label className="form-label">Password</label>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className="form-control pe-5"
-                  name="password"
-                  value={signupInfo.password}
-                  onChange={handleChange}
-                  required
-                />
-                <button
-                  type="button"
-                  className="btn position-absolute top-50 end-0 translate-middle-y me-2"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
-                </button>
-              </div>
+  <label className="form-label">Password</label>
+  <input
+    type={showPassword ? "text" : "password"}
+    className="form-control pe-5"
+    name="password"
+    value={signupInfo.password}
+    onChange={handleChange}
+    required
+    style={{ paddingRight: "40px" }} // Adjust padding to prevent overlap
+  />
+  <button
+    type="button"
+    className="btn position-absolute"
+    style={{
+      top: "50%",
+      right: "10px", // Adjust as needed
+      transform: "translateY(-12%)",
+      background: "transparent",
+      border: "none",
+      cursor: "pointer",
+    }}
+    onClick={() => setShowPassword(!showPassword)}
+  >
+    {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+  </button>
+</div>
+
 
               {/* Submit Button */}
               <button type="submit" className="btn btn-primary w-100">

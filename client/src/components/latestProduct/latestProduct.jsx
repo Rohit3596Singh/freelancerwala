@@ -1,103 +1,114 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios"; // Axios for API calls
+import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
+import { BackendUrl } from "../../constants";
+import LatestProductCard from "./latestProductCard"; // ✅ Fixed import (uppercase)
 
-// import img1 from "../assets/image1.png"; 
-// import img2 from "../assets/image2.png"; 
-// import img3 from "../assets/image3.png"; 
-// import img4 from "../assets/image4.png"; 
-// import img5 from "../assets/image5.png"; 
-// import img6 from "../assets/image6.png"; 
+const LatestProduct = () => {
+  const [latestProducts, setLatestProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [cart, setCart] = useState([]);
 
+  useEffect(() => {
+    const fetchLatestProducts = async () => {
+      try {
+        const response = await axios.get(`${BackendUrl}api/products`);
+        console.log("API Response:", response.data); // Debugging
 
+        if (!Array.isArray(response.data.products)) {
+          console.error("Expected an array but got:", response.data);
+          return;
+        }
 
-const products = [
-  {
-    id: 1,
-    image: "https://via.placeholder.com/150", // Replace with actual image path
-    company: "Company name",
-    description: "Product description",
-    rating: 3,
-    price: "$1234",
-  },
-  {
-    id: 2,
-    image: "https://via.placeholder.com/150",
-    company: "Company name",
-    description: "Product description",
-    rating: 4,
-    price: "$1234",
-  },
-  {
-    id: 3,
-    image: "https://via.placeholder.com/150",
-    company: "Company name",
-    description: "Product description",
-    rating: 5,
-    price: "$1234",
-  },
-  {
-    id: 4,
-    image: "https://via.placeholder.com/150",
-    company: "Company name",
-    description: "Product description",
-    rating: 3,
-    price: "$1234",
-  },
-  {
-    id: 5,
-    image: "https://via.placeholder.com/150",
-    company: "Company name",
-    description: "Product description",
-    rating: 4,
-    price: "$1234",
-  },
-  {
-    id: 6,
-    image: "https://via.placeholder.com/150",
-    company: "Company name",
-    description: "Product description",
-    rating: 3,
-    price: "$1234",
-  },
-];
+        const allProducts = response.data.products;
+        const today = new Date().toISOString().split("T")[0];
 
-const LatestProductCard = () => {
+        const todaysProducts = allProducts.filter((product) => {
+          if (!product.createdAt) return false;
+          const productDate = new Date(product.createdAt).toISOString().split("T")[0];
+          return productDate === today;
+        });
+
+        setLatestProducts(todaysProducts.slice(0, 3));
+      } catch (error) {
+        console.error("Error fetching latest products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLatestProducts();
+  }, []);
+
+  // Show Modal with Product Details
+  const handleShowModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  // Close Modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
+  };
+
+  // Add Product to Cart
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      const updatedCart = [...cart, selectedProduct];
+      setCart(updatedCart);
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save to localStorage
+    }
+    handleCloseModal();
+  };
+
   return (
     <div className="m-3">
-      {/* <h2 className="fw-bold text-primary text-center mb-4">Trending Products</h2> */}
-      
-      <div className="row g-4">
-        {products.map((product) => (
-          <div key={product.id} className="col-12 col-sm-6 col-md-4">
-            <div className="card border-0 shadow-sm">
-              <div className="position-relative">
-                <img src={product.image} alt="Product" className="card-img-top p-3" />
-                <i className="bi bi-heart position-absolute top-0 end-0 p-3"></i>
-              </div>
-
-              <div className="card-body">
-                <p className="text-muted m-0">{product.company}</p>
-                <h5 className="fw-bold">{product.description}</h5>
-
-                {/* Star Rating */}
-                <div className="mb-2">
-                  {[...Array(5)].map((_, index) => (
-                    <i key={index} className={`bi bi-star${index < product.rating ? "-fill text-warning" : ""}`}></i>
-                  ))}
-                </div>
-
-                {/* Price */}
-                <div className="fw-bold text-dark">
-                  <span className="text-black">${product.price}</span>{" "}
-                  <span className="text-muted text-decoration-line-through">${product.price}</span>
-                </div>
-              </div>
+      {loading ? (
+        <p>Loading...</p>
+      ) : latestProducts.length > 0 ? (
+        <div className="row g-4">
+          {latestProducts.map((product) => (
+            <div key={product._id} className="col-12 col-sm-6 col-md-4">
+              <LatestProductCard product={product} onShowModal={handleShowModal} />
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center">No products available for today.</p>
+      )}
+
+      {/* Add to Cart Modal */}
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Product Details</Modal.Title>
+        </Modal.Header>
+        {selectedProduct && (
+          <Modal.Body>
+            <img
+              src={selectedProduct.image}
+              alt={selectedProduct.name}
+              className="w-100 mb-3"
+              style={{ maxHeight: "250px", objectFit: "contain" }}
+            />
+            <h5>{selectedProduct.name}</h5>
+            <p>Price: ₹{selectedProduct.price}</p>
+            <p>Original Price: ₹{selectedProduct.originalPrice}</p>
+            <p>Discount: {selectedProduct.discount}% OFF</p>
+            <p>Rating: ⭐ {selectedProduct.rating} ({selectedProduct.reviews} reviews)</p>
+            <p>Delivery Date: 🚚 {selectedProduct.deliveryDate}</p>
+          </Modal.Body>
+        )}
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
+          <Button variant="primary" onClick={handleAddToCart}>Add to Cart</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
 
-export default LatestProductCard;
+export default LatestProduct;
