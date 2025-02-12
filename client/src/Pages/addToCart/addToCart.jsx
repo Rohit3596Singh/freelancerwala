@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import { useLocation } from "react-router-dom"; // Hook to access state passed through router
+import { useLocation,useNavigate } from "react-router-dom"; // Hook to access state passed through router
 
 import Footer from "../../components/footer/footer.jsx";
 import Header from "../../components/header/header.jsx";
 
 const CartPage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const initialCart = JSON.parse(localStorage.getItem("cart")) || []; // Retrieve cart from localStorage
   const [updatedCart, setUpdatedCart] = useState(initialCart);
@@ -122,7 +123,9 @@ const CartPage = () => {
                 <p>
                   <strong>Total: </strong>₹{calculateTotal()}
                 </p>
-                <Button variant="primary" className="w-100">
+                <Button variant="primary" className="w-100"
+                onClick={()=>navigate("/checkout")}
+                >
                   Proceed to Checkout
                 </Button>
               </Card.Body>

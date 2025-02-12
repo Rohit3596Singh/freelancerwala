@@ -59,14 +59,27 @@ const TrendingProduct = () => {
   };
 
   // Add Product to Cart
+  // const handleAddToCart = () => {
+  //   if (selectedProduct) {
+  //     const updatedCart = [...cart, selectedProduct];
+  //     setCart(updatedCart);
+  //     localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save to localStorage
+  //   }
+  //   handleCloseModal();
+  // };
+
+
   const handleAddToCart = () => {
     if (selectedProduct) {
-      const updatedCart = [...cart, selectedProduct];
+      const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+      const updatedCart = [...existingCart, selectedProduct];
       setCart(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save to localStorage
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
     handleCloseModal();
   };
+  
+
 
   return (
     <div className="m-3">

@@ -58,15 +58,15 @@ const SalesPage = () => {
   // Add Product to Cart
   const handleAddToCart = () => {
     if (selectedProduct) {
-      const updatedCart=[...cart, selectedProduct];
-      // alert(`${selectedProduct.name} added to cart!`);
+      const existingCart = JSON.parse(localStorage.getItem("cart")) || []; // ✅ Get existing cart
+      const updatedCart = [...existingCart, selectedProduct]; // ✅ Merge new product
       setCart(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save to localStorage
-      // setShowModal(false);
-      
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // ✅ Save merged cart
     }
     handleCloseModal();
   };
+  
+
 
   return (
     <div>
