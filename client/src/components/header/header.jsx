@@ -68,7 +68,11 @@ const Header = ({ cart = [] }) => {
         {/* Right: Icons */}
         <div className="col-12 col-md-4 text-end mt-3 mt-md-0 d-flex justify-content-end gap-3">
           <i className="bi bi-search" style={{ fontSize: "1.5rem" }}></i>
-          <i className="bi bi-bell-fill" style={{ fontSize: "1.5rem" }}></i>
+          <i className="bi bi-bell-fill" style={{ fontSize: "1.5rem" }}
+          onClick={()=>{
+            navigate("/notifications")
+          }}
+          ></i>
 
           {/* Cart Icon with Badge */}
           <div style={{ position: "relative", cursor: "pointer" }} onClick={goToCart}>

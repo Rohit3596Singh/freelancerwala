@@ -11,6 +11,7 @@ import AdminLogin from "./Pages/auth/AdminLogin"
 import AdminSignup from "./Pages/auth/AdminSignup"
 import UploadProduct from "../src/amin/uploadProduct/uploadProduct"
 import CheckoutPage from './Pages/checkout/checkout';
+import NotificationsPage from './Pages/notification/notification';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -32,6 +33,7 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin/uploadproduct" element={<UploadProduct />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/notifications" element={<NotificationsPage />} />
 
       </Routes>
     </Router>

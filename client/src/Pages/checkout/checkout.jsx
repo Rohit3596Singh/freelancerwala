@@ -3,7 +3,9 @@ import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import Footer from "../../components/footer/footer.jsx";
 import Header from "../../components/header/header.jsx";
 import { BackendUrl } from "../../constants.jsx";
-import {ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for styling
+
 
 const CheckoutPage = () => {
   const initialCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -29,6 +31,16 @@ const CheckoutPage = () => {
 
   const handlePayment = async () => {
     const token = localStorage.getItem("token")
+
+    // Validate user info before proceeding
+  if (!userInfo.name.trim() || !userInfo.phone.trim() || !userInfo.email.trim()) {
+    toast.error("Please fill in all billing details before proceeding.", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+    return;  // Stop function execution if validation fails
+  }
+
     try {
       // Send Order Data to Backend
       const response = await fetch(`${BackendUrl}api/order/create-order`, {
@@ -168,6 +180,7 @@ const CheckoutPage = () => {
         </Row>
       </div>
       <Footer />
+      <ToastContainer /> 
     </div>
   );
 };

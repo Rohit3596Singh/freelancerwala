@@ -1,0 +1,17 @@
+#notificationCard {
+    border-radius: 12px;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .btn-danger {
+    font-size: 14px;
+  }
+  
