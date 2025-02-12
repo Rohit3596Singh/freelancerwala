@@ -8,6 +8,8 @@ const AuthRouter = require('./Routes/AuthRoute')
 const AdminAuthRouter = require('./Routes/AdminAuthRoute')
 // const uploadRoutes = require('./Routes/uploadRoute');
 const productRoutes = require('./Routes/productRoute');
+const orderRoutes = require('./Routes/orderRoutes');
+const notifications = require('./Routes/NotificationRoute');
 
 
 const app = express();
@@ -34,6 +36,8 @@ app.use('/admin/auth', AdminAuthRouter);
 // app.use("/uploads", express.static("uploads"));
 // app.use('/api', uploadRoutes);
 app.use('/api', productRoutes);
+app.use("/api/order", orderRoutes);
+app.use("/api/notifications", notifications);
 
 app._router.stack.forEach((r) => {
     if (r.route && r.route.path) {
