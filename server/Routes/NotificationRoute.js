@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Notification = require("../models/Notification"); // Assuming you have a model
+const Notification = require("../models/Notifications"); // Assuming you have a model
 
 // Fetch all notifications
 router.get("/notifications", async (req, res) => {
