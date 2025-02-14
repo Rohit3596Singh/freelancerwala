@@ -30,28 +30,23 @@ const CheckoutPage = () => {
   const totalAmount = subtotal + taxAmount;
 
   const handlePayment = async () => {
-    const token = localStorage.getItem("token")
-
+    const token = localStorage.getItem("token");
+  
     // Validate user info before proceeding
-  if (!userInfo.name.trim() || !userInfo.phone.trim() || !userInfo.email.trim()) {
-    toast.error("Please fill in all billing details before proceeding.", {
-      position: "top-right",
-      autoClose: 3000,
-    });
-    return;  // Stop function execution if validation fails
-  }
-
+    if (!userInfo.name.trim() || !userInfo.phone.trim() || !userInfo.email.trim()) {
+      toast.error("⚠️ Please fill in all billing details before proceeding.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return; // Stop function execution if validation fails
+    }
+  
     try {
       // Send Order Data to Backend
       const response = await fetch(`${BackendUrl}api/order/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userInfo,
-          cart,
-          totalAmount,
-          token:token,
-        }),
+        body: JSON.stringify({ userInfo, cart, totalAmount, token }),
       });
   
       const orderData = await response.json();
@@ -59,44 +54,32 @@ const CheckoutPage = () => {
       if (!response.ok) {
         throw new Error(orderData.error || `Failed to create order (Status: ${response.status})`);
       }
-
-      toast.success("Order saved successfully! Proceeding to payment...",{
-        position: "top-right",
-        autoclose:3000,
-      });
-      
   
-    //   // Proceed with Razorpay Payment
-    //   const options = {
-    //     key: "your_razorpay_key",
-    //     amount: totalAmount * 100, 
-    //     currency: "INR",
-    //     name: "Your Website",
-    //     description: "Payment for your order",
-    //     handler: function (response) {
-    //       alert("Payment Successful!");
-    //       console.log(response);
-    //     },
-    //     prefill: {
-    //       name: userInfo.name,
-    //       email: userInfo.email,
-    //       contact: userInfo.phone,
-    //     },
-    //     theme: { color: "#3399cc" },
-    //   };
-      
-    //   const razorpay = new window.Razorpay(options);
-    //   razorpay.open();
-    } 
-    // catch (error) {
-    //   console.error("Error processing payment:", error);
-    //   alert("Error processing payment!");
-    // }
-    catch(error){
-        alert("error")
+      // Call the new email API separately
+      await fetch(`${BackendUrl}api/email/send-confirmation-email`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: userInfo.name,
+          email: userInfo.email,
+          totalAmount,
+        }),
+      });
+  
+      toast.success("✅ Order placed & confirmation email sent!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+  
+    } catch (error) {
+      console.error("Error processing order:", error);
+      toast.error("❌ Error placing order. Please try again later.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
-    
   };
+  
 
   return (
     <div>
