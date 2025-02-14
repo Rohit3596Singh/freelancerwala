@@ -11,10 +11,6 @@ import Categories from "./categories/categories"
 import "./home.css"
 
 import MEET from "../assets/team.jpg";
-// import FRAME1 from "../assets/Frame85.png";
-// import FRAME2 from "../assets/Frame86.png";
-// import FRAME3 from "../assets/Frame88.png";
-// import FRAME4 from "../assets/Frame89.png";
 
 const Home = () => {
   const [cart, setCart] = useState([]);

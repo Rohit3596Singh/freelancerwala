@@ -41,11 +41,10 @@ const Header = ({ cart = [] }) => {
           onClick={handleNavigationHome}
           style={{ cursor: "pointer" }}
         >
-          <img src={LOGO} alt="Logo" className="h-8" />
-          <span className="h5 font-weight-bold text-primary">
-            FREELANCERWALA
-          </span>
+          <img src={LOGO} alt="Logo" style={{ height: "30px" }} /> {/* Reduced image size */}
+          <span className="fs-3 fw-bold text-primary">FREELANCERWALA</span> {/* Increased text size */}
         </div>
+
 
         {/* Navigation */}
         <div className="col-12 col-md-4 text-center">

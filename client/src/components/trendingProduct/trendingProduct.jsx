@@ -78,6 +78,29 @@ const TrendingProduct = () => {
     }
     handleCloseModal();
   };
+
+  // const handleAddToCart = () => {
+  //   if (selectedProduct) {
+  //     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  //     const updatedCart = [...existingCart, selectedProduct];
+  //     setCart(updatedCart);
+  //     localStorage.setItem("cart", JSON.stringify(updatedCart));
+  
+  //     // ✅ Manually trigger storage event to update cart badge in Home.jsx
+  //     window.dispatchEvent(new Event("storage"));
+  //   }
+  //   handleCloseModal();
+  // };
+
+  // const handleAddToCart = () => {
+  //   if (selectedProduct) {
+  //     const updatedCart = [...cart, selectedProduct];
+  //     setCart(updatedCart);
+  //     localStorage.setItem("cart", JSON.stringify(updatedCart));
+  //   }
+  //   handleCloseModal();
+  // };
+  
   
 
 
