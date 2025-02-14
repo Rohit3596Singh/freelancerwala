@@ -10,6 +10,10 @@ const productSchema = new mongoose.Schema({
     type: String, // Will store the image path
     required: true,
   },
+  category:{
+    type:String,
+    required:true,
+  },
   price: {
     type: Number,
     required: true,
